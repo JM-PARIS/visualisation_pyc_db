@@ -7,7 +7,6 @@
 @Author : JM PARIS
 '''
 
-
 ###LIBRARIES
 ###
 import numpy as np
@@ -56,17 +55,6 @@ def daplot(a, df = df):
         except ValueError:
             pass
 
-
-
-    kde_a = gaussian_kde(tab_a)
-    kde_b = gaussian_kde(tab_b)
-
-    xmin = min(min(tab_a), min(tab_b))
-    xmax = max(max(tab_a), max(tab_b))
-
-    bins = np.linspace(xmin, xmax, 50)
-    xs = np.linspace(xmin, xmax, 400)
-
     #PLOT
 
     sns.histplot(tab_b, kde = True, stat = "percent", color = "#0072B2",
@@ -75,15 +63,7 @@ def daplot(a, df = df):
     sns.histplot(tab_a, kde = True, stat = "percent", color = "#CC79A7",
                  bins = 50, label = "with big papers ("+str(len(tab_a))+" pts)", edgecolor = "#CC79A7")
 
-    # _, bins, _ = plt.hist(tab_b, density = True, alpha = 0.9, bins=50,
-    #                        color = "#0072B2", label = "without big papers")
-    # plt.plot(xs, kde_b(xs),color = "#0072B2")
-
-    # _ = plt.hist(tab_a, bins=bins, density=True, alpha=0.5,
-    #              color = "#CC79A7", label = "with big papers")
-
     plt.xlabel(unit_description[a].values[0])
-
 
     plt.legend()
     plt.show()
@@ -95,3 +75,7 @@ daplot("BD1")
 # daplot("SOC4")
 # daplot("MAP1")
 # %%
+
+
+
+    sns.histplot(data=tips, x="day", shrink=.8)
