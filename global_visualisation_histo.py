@@ -16,14 +16,15 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
 from scipy.stats import gaussian_kde
 import math as math
- 
+import seaborn as sns
+
 
 #import fichier
 df = pd.read_csv("20250201_PyC_database_version3_4.csv")
 
 ##HISTOGRAM
 
-def daplot(a, df):
+def daplot(a, df = df):
     #separate unit description from data
     unit_description = df.loc[[0]]
     units = df.loc[[1]]
@@ -68,26 +69,29 @@ def daplot(a, df):
 
     #PLOT
 
-    _, bins, _ = plt.hist(tab_b, density = True, alpha = 0.9, bins=50,
-                           color = "#0072B2", label = "without big papers")
-    plt.plot(xs, kde_b(xs),color = "#0072B2")
+    sns.histplot(tab_b, kde = True, stat = "percent", color = "#0072B2",
+                 bins = 50, label = "without big papers ("+str(len(tab_b))+" pts)",
+                 edgecolor = "#0072B2")
+    sns.histplot(tab_a, kde = True, stat = "percent", color = "#CC79A7",
+                 bins = 50, label = "with big papers ("+str(len(tab_a))+" pts)", edgecolor = "#CC79A7")
+
+    # _, bins, _ = plt.hist(tab_b, density = True, alpha = 0.9, bins=50,
+    #                        color = "#0072B2", label = "without big papers")
+    # plt.plot(xs, kde_b(xs),color = "#0072B2")
 
     # _ = plt.hist(tab_a, bins=bins, density=True, alpha=0.5,
     #              color = "#CC79A7", label = "with big papers")
 
-    # plt.plot(xs, kde_a(xs),color = "#CC79A7")
-
-
     plt.xlabel(unit_description[a].values[0])
-    plt.gca().yaxis.set_major_formatter(PercentFormatter(1))
-    plt.legend()
 
+
+    plt.legend()
     plt.show()
     return()
 
 #%%
-daplot("MAP3", df)
-# daplot("MAT3", df)
-# daplot("SOC4", df)
-# daplot("MAP1", df)
+daplot("BD1")
+# daplot("MAT3")
+# daplot("SOC4")
+# daplot("MAP1")
 # %%
