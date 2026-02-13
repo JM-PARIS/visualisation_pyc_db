@@ -22,30 +22,21 @@ import seaborn as sns
 df = pd.read_csv("20250201_PyC_database_version3_4.csv")
 
 ##boxplot
-def daplot_boxplot(a, df = df):
-    #separate unit description from data
+def daplot_boxplot(var_num, var_class, df = df):
     unit_description = df.loc[[0]]
     units = df.loc[[1]]
 
     df= df.drop([0, 1])
-    sns.histplot(data=df, x=a, shrink=.8, color = "#CC79A7",
-                 bins = 50, edgecolor = "#CC79A7", alpha = 0.6,
-                 label = "with big papers")
 
-    df=df.drop(df[df["id"]=="122"].index)
-    df=df.drop(df[df["id"]==122].index)
-    df=df.drop(df[df["id"]=="95"].index)
-    
-    sns.histplot(data=df, x=a, shrink=.8, color = "#56B4E9",
-                  bins = 50, label = "without big papers",
-                  edgecolor = "#0072B2", alpha = 0.6)
+    df[var_num] = pd.to_numeric(df[var_num])
 
+    sns.boxplot(data=df, x = var_num, y = var_class, color = "#CC79A7")
 
-    plt.xticks(rotation=90)
-    plt.xlabel(unit_description[a].values[0])
-    plt.legend()
+    # plt.xticks(rotation=90)
+    plt.xlabel(unit_description[var_num].values[0])
+    # plt.legend()
 
     return()
 
-daplot_discrete("FRI2")
+daplot_boxplot("SOC2","soil3")
 # %%

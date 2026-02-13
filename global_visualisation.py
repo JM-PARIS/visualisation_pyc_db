@@ -26,7 +26,7 @@ units = df.loc[[1]]
 df= df.drop([0, 1])
 
 #drop big papers
-big_papers = True
+big_papers = False
 
 if not big_papers:
     df=df.drop(df[df["id"]=="122"].index)
@@ -60,7 +60,7 @@ def correl_plot(a,b):
     tab_a = []
     tab_b = []
     tab = []
-    
+
     for k in range(len(df[a])):
         try :
             tab += [[float(df[a].values[k]),float(df[b].values[k])]]
