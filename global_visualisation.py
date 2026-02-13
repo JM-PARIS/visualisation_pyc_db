@@ -19,9 +19,6 @@ from sklearn.linear_model import LinearRegression
 df = pd.read_csv("20250201_PyC_database_version3_4.csv")
 
 
-
-
-
 #separate unit description from data
 unit_description = df.loc[[0]]
 units = df.loc[[1]]
@@ -58,17 +55,21 @@ def daplot(a):
 
 
 ##EXTRACTED CORRELATION
-
+# %%
 def correl_plot(a,b):
     tab_a = []
     tab_b = []
-
+    tab = []
+    
     for k in range(len(df[a])):
         try :
-            tab_a += [float(df[a].values[k])]
-            tab_b += [float(df[b].values[k])]
+            tab += [[float(df[a].values[k]),float(df[b].values[k])]]
         except ValueError:
             pass
+    
+    tab_a = np.array(tab)[:,0]
+    tab_b = np.array(tab)[:,1]
+
 
     all_lat = df['lat3'].values[:]
     all_long = df['long3'].values[:]
@@ -76,6 +77,8 @@ def correl_plot(a,b):
     #lin reg
     x=[]
     y=[]
+
+    print(len(tab_a),len(tab_b))
 
     coor_non_nan = []
     #removing nan values before linear regression
@@ -124,6 +127,7 @@ def correl_plot(a,b):
     plt.show()
     return()#x,y,coor_non_nan)
 
+# %%
 
 correl_plot("BD1","BD3")
 correl_plot("MAP2","MAP3")
@@ -269,3 +273,6 @@ correl_plot_depth("SOC2","SOC4")
 correl_plot_depth("BD1","BD3")
 
 # %%
+
+
+

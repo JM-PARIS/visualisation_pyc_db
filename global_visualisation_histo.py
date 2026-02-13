@@ -77,5 +77,30 @@ daplot("BD1")
 # %%
 
 
+def daplot_discrete(a, df = df):
+    #separate unit description from data
+    unit_description = df.loc[[0]]
+    units = df.loc[[1]]
 
-    sns.histplot(data=tips, x="day", shrink=.8)
+    df= df.drop([0, 1])
+    sns.histplot(data=df, x=a, shrink=.8, color = "#CC79A7",
+                 bins = 50, edgecolor = "#CC79A7", alpha = 0.6,
+                 label = "with big papers")
+
+    df=df.drop(df[df["id"]=="122"].index)
+    df=df.drop(df[df["id"]==122].index)
+    df=df.drop(df[df["id"]=="95"].index)
+    
+    sns.histplot(data=df, x=a, shrink=.8, color = "#56B4E9",
+                  bins = 50, label = "without big papers",
+                  edgecolor = "#0072B2", alpha = 0.6)
+
+
+    plt.xticks(rotation=90)
+    plt.xlabel(unit_description[a].values[0])
+    plt.legend()
+
+    return()
+
+daplot_discrete("FRI2")
+# %%
